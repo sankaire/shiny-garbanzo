@@ -16,13 +16,6 @@ const lastPosted = async (req:any, res:any) =>{
             storiesArray.push(result)
         }
         // @ts-ignore
-        let lastSevenDaysPost = storiesArray.reverse().filter((items:any)=>{
-            let date = new Date(items.time).toLocaleDateString('en-US')
-            // @ts-ignore
-            let lastWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7)
-            console.log(new Date(lastWeek).toLocaleString('en-US'))
-        })
-        // @ts-ignore
         return res.json(storiesArray)
 
     } catch (e) {
@@ -41,7 +34,7 @@ const frequentWords = async (req:any, res:any)=>{
             // @ts-ignore
             let data:any = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${element}.json?print=pretty`)
             result = data.data
-            console.log(result)
+            // console.log(result)
             b.push(result)
         }
         let titles = b.map(items=>items.title)
@@ -77,7 +70,7 @@ const frequentWords = async (req:any, res:any)=>{
                 .slice(0, num);
             return keys;
         };
-        return res.json(mostFrequent(arr, num))
+        return res.status(200).json(mostFrequent(arr, num))
     }catch (err){
         console.log(err.message)
     }
